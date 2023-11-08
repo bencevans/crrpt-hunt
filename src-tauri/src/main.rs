@@ -49,7 +49,6 @@ async fn scan_dir(directory: &str) -> Result<ScanResults, ()> {
 
         println!("Found image: {}", path_str);
 
-
         if image.is_err() {
             // results.push_str(&format!("Error opening image: {}", path_str));
             println!("Error opening image: {}", path_str);
@@ -69,7 +68,6 @@ struct ScanResults {
     total_errors: u32,
     errors: Vec<String>,
 }
-
 
 fn main() {
     tauri::Builder::default()

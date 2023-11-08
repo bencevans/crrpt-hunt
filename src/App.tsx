@@ -106,43 +106,119 @@ function App() {
           left: 0,
           bottom: 0,
           right: 0,
+          gap: "10px",
           // overflowY: "scroll",
         }}
       >
-        {/* <p>Results</p> */}
-        <table>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "left" }}>Files</th>
-              <th style={{ textAlign: "left" }}>Images</th>
-              <th style={{ textAlign: "left" }}>Errors</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{results.total_files}</td>
-              <td>{results.total_images}</td>
-              <td>{results.total_errors}</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "left" }}>Corrupted Files</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.errors.map((error) => {
-              const [file, result] = error.split(":");
-              return (
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+          }}
+        >
+          {/* Tick */}
+          {results.total_errors === 0 ? (
+            <svg width="112" height="112" viewBox="0 0 24 24">
+              <path
+                // green
+                fill="#4caf50"
+                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+              />
+            </svg>
+          ) : (
+            <svg width="112" height="112" viewBox="0 0 24 24">
+              {/* Warning */}
+              <path
+                // yellow warning triangle
+                fill="#ffc107"
+                d="M12 2L1 21h22L12 2zm0 17l5.5-6h-11l5.5 6z"
+              />
+              <path
+                // red exclamation
+                fill="#f44336"
+                d="M11 15h2v2h-2zm0-8h2v6h-2z"
+              />
+            </svg>
+          )}
+        </div>
+        <p
+          style={{
+            fontSize: "18px",
+            // fontWeight: "bold",
+            textAlign: "center",
+            width: "100%",
+            margin: 0,
+          }}
+        >
+          {results.total_images} images found, {results.total_errors} corrupted
+        </p>
+        
+
+        {results.errors.length > 0 && (
+          <>
+            {/* <table>
+              <thead>
                 <tr>
-                  <td>{file}</td>
+                  <th style={{ textAlign: "left" }}>Files</th>
+                  <th style={{ textAlign: "left" }}>Images</th>
+                  <th style={{ textAlign: "left" }}>Errors</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{results.total_files}</td>
+                  <td>{results.total_images}</td>
+                  <td>{results.total_errors}</td>
+                </tr>
+              </tbody>
+            </table> */}
+            <table>
+              <thead>
+                <tr>
+                  <th style={{ textAlign: "left" }}>Corrupted Files</th>
+                </tr>
+              </thead>
+              <tbody>
+                {results.errors.map((error) => {
+                  const [file, result] = error.split(":");
+                  return (
+                    <tr>
+                      <td>{file}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </>
+        )}
+
+<div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <button
+            style={{
+              backgroundColor: "#333",
+              color: "white",
+              border: "none",
+              padding: "10px",
+              borderRadius: "5px",
+              cursor: "pointer",
+              fontSize: "14px",
+              marginBottom: "10px",
+            }}
+            onClick={() => setResults(null)}
+          >
+            New Scan
+          </button>
+        </div>
+
       </div>
     );
   }
