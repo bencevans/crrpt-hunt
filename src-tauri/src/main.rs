@@ -3,6 +3,8 @@
 
 // use core::unicode::conversions::to_lower;
 
+use tauri::{Window, Manager};
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -69,9 +71,14 @@ struct ScanResults {
     errors: Vec<String>,
 }
 
+#[tauri::command]
+async fn showup(window: Window) {
+    window.get_window("main").unwrap().show().unwrap(); // replace "main" by the name of your window
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet, scan_dir])
+        .invoke_handler(tauri::generate_handler![greet, scan_dir, showup])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

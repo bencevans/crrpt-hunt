@@ -91,6 +91,11 @@ function App() {
   //     });
   // }, []);
 
+  useEffect(() => {
+    invoke("showup");
+  }, []);
+
+
   if (results) {
     return (
       <div
@@ -131,11 +136,11 @@ function App() {
           ) : (
             <svg width="112" height="112" viewBox="0 0 24 24">
               {/* Warning */}
-              <path
+              {/* <path
                 // yellow warning triangle
                 fill="#ffc107"
                 d="M12 2L1 21h22L12 2zm0 17l5.5-6h-11l5.5 6z"
-              />
+              /> */}
               <path
                 // red exclamation
                 fill="#f44336"
@@ -183,7 +188,7 @@ function App() {
               </thead>
               <tbody>
                 {results.errors.map((error) => {
-                  const [file, result] = error.split(":");
+                  const [file, _] = error.split(":");
                   return (
                     <tr>
                       <td>{file}</td>
