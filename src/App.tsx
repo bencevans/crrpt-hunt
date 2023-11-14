@@ -12,7 +12,7 @@ interface ScanDirResponse {
 }
 
 function App() {
-  const [includeSubfolders, setIncludeSubfolders] = useState(true);
+  // const [includeSubfolders, setIncludeSubfolders] = useState(true);
   const [isDropActive, setIsDropActive] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [results, setResults] = useState(null as ScanDirResponse | null);
@@ -28,7 +28,7 @@ function App() {
       setIsDropActive(false);
 
       const response = (await invoke("scan_dir", {
-        directory: files[0],
+        paths: files,
         // includeSubfolders,
       })) as ScanDirResponse;
 
@@ -337,7 +337,7 @@ function App() {
         </div>
       </section>
 
-      <div
+      {/* <div
         style={{
           display: "flex",
           flexDirection: "row",
@@ -356,7 +356,7 @@ function App() {
             setIncludeSubfolders(e.target.checked);
           }}
         />
-      </div>
+      </div> */}
     </div>
   );
 }
